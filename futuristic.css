@@ -1,0 +1,397 @@
+/* ==========================================
+   FUTURISTIC ENHANCEMENTS - NEW SECTIONS
+   ========================================== */
+
+/* Section Subtitle */
+.section-subtitle {
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-lg);
+    margin-top: calc(var(--spacing-md) * -1);
+    margin-bottom: var(--spacing-3xl);
+}
+
+/* ==========================================
+   TECH INSIGHTS SECTION
+   ========================================== */
+.insights {
+    background: var(--color-bg-secondary);
+}
+
+.insights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--spacing-xl);
+}
+
+.insight-card {
+    background: rgba(13, 25, 35, 0.98);
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-2xl);
+    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+    will-change: transform, opacity;
+}
+
+.insight-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-gradient-start), var(--color-gradient-mid), var(--color-gradient-end));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition-base);
+}
+
+.insight-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--color-accent-primary);
+    box-shadow: 0 15px 40px rgba(0, 217, 255, 0.3);
+}
+
+.insight-card:hover::before {
+    transform: scaleX(1);
+}
+
+.insight-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-lg);
+    display: inline-block;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.insight-title {
+    font-size: var(--font-size-xl);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-md);
+}
+
+.insight-excerpt {
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--spacing-lg);
+}
+
+.insight-meta {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.insight-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(0, 217, 255, 0.1);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    color: var(--color-accent-cyan);
+}
+
+/* ==========================================
+   SKILLS VISUALIZATION SECTION
+   ========================================== */
+.skills-viz {
+    background: var(--color-bg-primary);
+}
+
+.viz-container {
+    max-width: 600px;
+    margin: 0 auto var(--spacing-3xl);
+    padding: var(--spacing-2xl);
+    background: var(--color-bg-card);
+    border: 2px solid rgba(0, 217, 255, 0.3);
+    border-radius: var(--radius-2xl);
+    box-shadow: 0 0 40px rgba(0, 217, 255, 0.2);
+    position: relative;
+}
+
+.viz-container::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--color-gradient-start), var(--color-gradient-mid), var(--color-gradient-end));
+    border-radius: var(--radius-2xl);
+    z-index: -1;
+    opacity: 0.5;
+    filter: blur(10px);
+}
+
+#skillsRadar {
+    width: 100%;
+    height: 400px;
+}
+
+.tech-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-xl);
+}
+
+.tech-stat-item {
+    background: var(--color-bg-card);
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    transition: all var(--transition-base);
+}
+
+.tech-stat-item:hover {
+    border-color: var(--color-accent-primary);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3);
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.tech-stat-item h4 {
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-md);
+    font-size: var(--font-size-lg);
+}
+
+.stat-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(0, 217, 255, 0.1);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    margin-bottom: var(--spacing-sm);
+    position: relative;
+}
+
+.stat-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-gradient-start), var(--color-gradient-mid));
+    border-radius: var(--radius-full);
+    position: relative;
+    animation: fillBar 2s ease-out;
+    box-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
+}
+
+@keyframes fillBar {
+    from {
+        width: 0 !important;
+    }
+}
+
+.stat-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3));
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.stat-label {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+}
+
+/* ==========================================
+   TESTIMONIALS SECTION
+   ========================================== */
+.testimonials {
+    background: var(--color-bg-secondary);
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--spacing-xl);
+}
+
+.testimonial-card {
+    background: rgba(13, 25, 35, 0.98);
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-2xl);
+    position: relative;
+    transition: all var(--transition-base);
+}
+
+.testimonial-card::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.2), rgba(0, 255, 136, 0.2));
+    border-radius: var(--radius-xl);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity var(--transition-base);
+}
+
+.testimonial-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 217, 255, 0.3);
+}
+
+.testimonial-card:hover::before {
+    opacity: 1;
+}
+
+.quote-icon {
+    font-size: 4rem;
+    color: var(--color-accent-primary);
+    line-height: 1;
+    opacity: 0.3;
+    margin-bottom: var(--spacing-md);
+    font-family: Georgia, serif;
+}
+
+.testimonial-text {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-lg);
+    line-height: 1.8;
+    margin-bottom: var(--spacing-xl);
+    font-style: italic;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid rgba(0, 217, 255, 0.2);
+}
+
+.author-info h4 {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-base);
+    margin-bottom: 4px;
+}
+
+.author-info p {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    margin: 0;
+}
+
+/* ==========================================
+   HOLOGRAPHIC BUTTON
+   ========================================== */
+.btn-holographic {
+    background: transparent;
+    color: var(--color-text-primary);
+    border: 2px solid var(--color-accent-primary);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-holographic::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(0, 217, 255, 0.3),
+            transparent);
+    transition: left 0.5s;
+}
+
+.btn-holographic:hover::before {
+    left: 100%;
+}
+
+.btn-holographic::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg,
+            transparent,
+            rgba(0, 217, 255, 0.1),
+            transparent 30%);
+    animation: rotate 4s linear infinite;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.btn-holographic:hover {
+    background: rgba(0, 217, 255, 0.1);
+    box-shadow:
+        0 0 20px rgba(0, 217, 255, 0.5),
+        inset 0 0 20px rgba(0, 217, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.btn-icon {
+    margin-right: var(--spacing-xs);
+    font-size: var(--font-size-lg);
+}
+
+/* ==========================================
+   RESPONSIVE ADJUSTMENTS FOR NEW SECTIONS
+   ========================================== */
+@media (max-width: 768px) {
+
+    .insights-grid,
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tech-stats {
+        grid-template-columns: 1fr;
+    }
+
+    #skillsRadar {
+        height: 300px;
+    }
+
+    .hero-cta {
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+
+    .btn-holographic {
+        width: 100%;
+    }
+}

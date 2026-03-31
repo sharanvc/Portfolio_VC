@@ -131,7 +131,7 @@ This project is open source and available for personal use.
 
 **Sharan Vivek Chunamari**
 - Email: svivekc350@gmail.com
-- LinkedIn: [linkedin.com/in/sharan-vivek-chunamari](https://www.linkedin.com/in/sharan-vivek-chunamari)
+- LinkedIn: [linkedin.com/in/sharanvivek](https://www.linkedin.com/in/sharanvivek)
 - GitHub: [github.com/svivekc](https://github.com/svivekc)
 
 ---

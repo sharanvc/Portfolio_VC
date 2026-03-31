@@ -9,13 +9,8 @@ const mobileToggle = document.getElementById('mobileToggle');
 const navMenu = document.getElementById('navMenu');
 
 // Handle navbar background on scroll
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
-    }
-});
+// Handle navbar background on scroll - using debounced version later
+// window.addEventListener('scroll', () => { ... });
 
 // Smooth scroll to sections
 navLinks.forEach(link => {
@@ -68,10 +63,10 @@ function updateActiveLink(clickedLink = null) {
     });
 }
 
-// Update active link on scroll
-window.addEventListener('scroll', () => {
-    updateActiveLink();
-});
+// Update active link on scroll - moved to debounced listener below
+// window.addEventListener('scroll', () => {
+//     updateActiveLink();
+// });
 
 // Mobile menu toggle
 mobileToggle.addEventListener('click', () => {
@@ -226,7 +221,14 @@ function debounce(func, wait = 10) {
 // Apply debounce to scroll handler
 const debouncedScroll = debounce(() => {
     updateActiveLink();
-}, 10);
+
+    // Navbar background handling moved here
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+}, 16);
 
 window.addEventListener('scroll', debouncedScroll);
 

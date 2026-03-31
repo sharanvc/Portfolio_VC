@@ -1,5 +1,6 @@
 // ==========================================
 // MATRIX RAIN BACKGROUND ANIMATION
+// (Limited to Hero Section Only)
 // ==========================================
 
 class MatrixRain {
@@ -7,16 +8,20 @@ class MatrixRain {
         this.canvas = document.createElement('canvas');
         this.ctx = this.canvas.getContext('2d');
         this.canvas.id = 'matrix-canvas';
-        this.canvas.style.position = 'fixed';
+        this.canvas.style.position = 'absolute';
         this.canvas.style.top = '0';
         this.canvas.style.left = '0';
         this.canvas.style.width = '100%';
         this.canvas.style.height = '100%';
-        this.canvas.style.zIndex = '-1';
-        this.canvas.style.opacity = '0.8';
+        this.canvas.style.zIndex = '0';
+        this.canvas.style.opacity = '0.6';
+        this.canvas.style.pointerEvents = 'none';
 
-        // Insert canvas as first child of body
-        document.body.insertBefore(this.canvas, document.body.firstChild);
+        // Insert canvas into hero section
+        const heroSection = document.querySelector('.hero');
+        if (heroSection) {
+            heroSection.appendChild(this.canvas);
+        }
 
         // Matrix characters - mix of katakana, latin, and numbers
         this.chars = 'ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -25,17 +30,65 @@ class MatrixRain {
         this.fontSize = 14;
         this.columns = 0;
         this.drops = [];
+        this.isVisible = true;
 
         this.resize();
         this.init();
 
-        // Handle window resize
-        window.addEventListener('resize', () => this.resize());
+        // Handle window resize with throttle
+        window.addEventListener('resize', this.throttle(() => this.resize(), 200));
+
+        // Handle scroll to hide/show based on hero section visibility with throttle
+        window.addEventListener('scroll', this.throttle(() => this.handleScroll(), 100));
+    }
+
+    throttle(func, limit) {
+        let inThrottle;
+        return function () {
+            const args = arguments;
+            const context = this;
+            if (!inThrottle) {
+                func.apply(context, args);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
+            }
+        }
+    }
+
+    handleScroll() {
+        const heroSection = document.querySelector('.hero');
+        if (!heroSection) return;
+
+        const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+        const scrollPosition = window.scrollY + window.innerHeight;
+
+        // Hide animation when scrolled past hero section
+        const wasVisible = this.isVisible;
+        if (window.scrollY > heroBottom) {
+            this.isVisible = false;
+            // Stop the loop - canvas already hidden or about to be
+            this.canvas.style.display = 'none';
+        } else {
+            this.isVisible = true;
+            this.canvas.style.display = 'block';
+            this.canvas.style.opacity = '0.6';
+
+            // Restart loop if it was stopped
+            if (!wasVisible) {
+                this.draw();
+            }
+        }
     }
 
     resize() {
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
+        const heroSection = document.querySelector('.hero');
+        if (heroSection) {
+            this.canvas.width = heroSection.offsetWidth;
+            this.canvas.height = heroSection.offsetHeight;
+        } else {
+            this.canvas.width = window.innerWidth;
+            this.canvas.height = window.innerHeight;
+        }
 
         this.columns = Math.floor(this.canvas.width / this.fontSize);
 
@@ -51,12 +104,14 @@ class MatrixRain {
     }
 
     draw() {
+        // Return early if not visible to stop the animation loop
+        if (!this.isVisible) return;
+
         // Black background with slight transparency for trail effect
-        this.ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        this.ctx.fillStyle = 'rgba(10, 14, 26, 0.05)';
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-        // Matrix green text
-        this.ctx.fillStyle = '#00ff41';
+        // Cyberpunk colors - mix of cyan, teal, and green
         this.ctx.font = `${this.fontSize}px monospace`;
 
         // Draw characters
@@ -68,20 +123,26 @@ class MatrixRain {
             const x = i * this.fontSize;
             const y = this.drops[i] * this.fontSize;
 
-            // Vary the brightness for depth effect
+            // Vary the brightness and color for depth effect
             const brightness = Math.random();
             if (brightness > 0.95) {
                 // Bright white for leading characters
                 this.ctx.fillStyle = '#ffffff';
-            } else if (brightness > 0.9) {
-                // Bright green
-                this.ctx.fillStyle = '#39ff14';
+            } else if (brightness > 0.85) {
+                // Bright cyan
+                this.ctx.fillStyle = '#00d9ff';
+            } else if (brightness > 0.7) {
+                // Teal
+                this.ctx.fillStyle = '#14b8a6';
             } else if (brightness > 0.5) {
-                // Standard green
-                this.ctx.fillStyle = '#00ff41';
+                // Light cyan
+                this.ctx.fillStyle = '#67e8f9';
+            } else if (brightness > 0.3) {
+                // Green
+                this.ctx.fillStyle = '#00ff88';
             } else {
-                // Darker green
-                this.ctx.fillStyle = '#00cc33';
+                // Darker cyan
+                this.ctx.fillStyle = '#0891b2';
             }
 
             this.ctx.fillText(char, x, y);
@@ -109,4 +170,4 @@ if (document.readyState === 'loading') {
     new MatrixRain();
 }
 
-console.log('Matrix rain initialized 🟢');
+console.log('Matrix rain initialized (hero section only) 🌊');
